@@ -1,1 +1,0 @@
-// This is a condition var implementation using futex(2) syscall.

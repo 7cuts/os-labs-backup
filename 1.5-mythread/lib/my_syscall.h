@@ -1,7 +1,10 @@
 
+#include <stdint.h>
+#include <sys/types.h>
 #ifndef _SYSCALL_H
 #define _SYSCALL_H 1
 
+#include <stddef.h>
 /* Include __NR_* consts */
 #include <asm/unistd.h>
 
@@ -24,6 +27,9 @@ my_syscall(long syscall_no, long a1, long a2, long a3,
     return result;
 }
 
+#define my_syscall0(syscall_no) \
+    my_syscall((long)syscall_no, 0, 0, 0, 0, 0, 0)
+
 #define my_syscall1(syscall_no, a1) \
     my_syscall((long)syscall_no, (long)(a1), 0, 0, 0, 0, 0)
 
@@ -43,3 +49,10 @@ my_syscall(long syscall_no, long a1, long a2, long a3,
     my_syscall((long)syscall_no, (long)(a1), (long)(a2), (long)(a3), (long)(a4), (long)(a5), (long)(a6))
 
 #endif
+
+static inline int
+futex(uint32_t *uaddr, int op, uint32_t val)
+{
+    return my_syscall6(SYS_futex, uaddr, op, val,
+                    NULL, NULL, 0);
+}
