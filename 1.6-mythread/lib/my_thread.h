@@ -36,8 +36,7 @@ int mythread_create(mythread_t* thread,
  *
  * ERRORS:
  *    - -EDEADLK
- *      Two threads tried to join with each other
- *      or calling thread tries to join itself.
+ *      Calling thread tries to join itself.
  *
  *    - -ESRCH
  *      No thread with the ID `thread` could be found.
@@ -91,4 +90,8 @@ void mythread_testcancel(void);
  */
 mythread_t mythread_self();
 
+/** Terminate thread and return `retval` to the joining thread.
+  *
+  * This function never returns.
+  */
 void mythread_exit(void *retval);
