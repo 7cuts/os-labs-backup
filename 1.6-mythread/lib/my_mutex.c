@@ -17,7 +17,8 @@
 #define MUTEX_UNLOCKED 0
 #define MUTEX_LOCKED 1
 
-static bool a_cas(_Atomic(uint32_t) *ptr, uint32_t expected, uint32_t desired)
+static bool
+a_cas(_Atomic(uint32_t) *ptr, uint32_t expected, uint32_t desired)
 {
     return atomic_compare_exchange_strong(ptr, &expected, desired);
 }

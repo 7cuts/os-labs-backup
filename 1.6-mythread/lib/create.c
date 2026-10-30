@@ -31,7 +31,8 @@ static const int flags = CLONE_VM | CLONE_FS | CLONE_THREAD | CLONE_FILES | CLON
     | CLONE_CHILD_CLEARTID; // zero tcb->tid when child thread calls exit()
 
 // Return NULL if cannot alloc
-static void *alloc_thread() {
+static void *
+alloc_thread() {
     long res = my_syscall6(SYS_mmap, NULL, THREAD_MEM,
         PROT_READ | PROT_WRITE, MAP_STACK | MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
 
@@ -45,7 +46,8 @@ static void *alloc_thread() {
 }
 
 
-static int thread_start(void *arg) {
+static int
+thread_start(void *arg) {
 
     mythread *tcb = (mythread *) arg;
     void *retval;
